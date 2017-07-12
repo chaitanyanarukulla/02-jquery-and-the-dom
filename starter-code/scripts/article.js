@@ -20,7 +20,7 @@ Article.prototype.toHtml = function() {
   However, in our modules.css stylesheet, we gave all elements
   with a class of template a display of none. Let's make
   sure we're not accidentally hiding our cloned article! */
-  $('.template').removeClass().addClass(this.title);
+  $($newArticle).removeClass().addClass(this.title);
 
 
   if (!this.publishedOn) $newArticle.addClass('draft');
@@ -36,10 +36,14 @@ Article.prototype.toHtml = function() {
     5. publication date. */
 
   // Display the date as a relative number of 'days ago'
-  $newArticle.find('.article-body').html(this.body);
-  $newArticle.find('h1').html(this.title);
-  $newArticle.find('address').html(this.author);
-  $newArticle.find('a').html(this.authorUrl);
+  $('.template').find('h1').html(this.title);
+  console.log(this.title);
+  $('.template').find('address').html(this.author);
+  $('.template').find('href').html(this.authorUrl);
+  $('.template').find('time').html(this.publishedOn);
+  $('.template').find('section').html(this.body);
+
+
   $newArticle.find('time').html('about ' + parseInt((new Date() - new Date(this.publishedOn)) / 60 / 60 / 24 / 1000) + ' days ago');
   $newArticle.append('<hr>');
   return $newArticle;
